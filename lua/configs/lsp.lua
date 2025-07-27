@@ -5,10 +5,10 @@ local nvlsp = require "nvchad.configs.lspconfig"
 
 ---@type lspconfig.Config
 local default_lspconfig_setup_options = {
-  on_attach = function(client,bufnr)
+  on_attach = function(client, bufnr)
     nvlsp.on_attach(client, bufnr)
-    if client:supports_method("textDocument/inlayHint",{bufnr=bufnr}) then
-      vim.lsp.inlay_hint.enable(true,{bufnr=bufnr})
+    if client:supports_method("textDocument/inlayHint", { bufnr = bufnr }) then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
   end,
   on_init = nvlsp.on_init,
@@ -72,5 +72,18 @@ local options = {
     end,
   },
 }
+lspconfig.clangd.setup {
+  cmd = { "clangd" },
+}
+
+vim.lsp.config("texlab", {
+  settings = {
+    texlab = {
+      chktex = {
+        onOpenAndSave = true,
+      },
+    },
+  },
+})
 
 return options

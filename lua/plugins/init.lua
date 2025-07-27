@@ -1,9 +1,15 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
-
   -- These are some examples, uncomment them if you want to see them work!
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufEnter",
+    opts = function()
+      return require "configs.treesitter"
+    end,
+  },
 }

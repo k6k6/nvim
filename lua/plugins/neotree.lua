@@ -21,7 +21,7 @@ return {
         sources = { -- table
           {
             source = "filesystem", -- string
-            display_name = "󰉓 Files", -- string | nil
+            display_name = " Files", -- string | nil
           },
           {
             source = "buffers", -- string
@@ -39,7 +39,12 @@ return {
         winbar = true,
         show_separator_on_edge = "true",
         content_layout = "center",
-        separator_active = { left = "|", right = "|", override = "active" },
+        -- separator_active = { left = "|", right = "|", override = "active" },
+        highlight_tab = "NeoTreeTabInactive", -- string
+        highlight_tab_active = "NeoTreeTabActive", -- string
+        highlight_background = "NeoTreeTabInactive", -- string
+        highlight_separator = "NeoTreeTabSeparatorInactive", -- string
+        highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
       },
       filesystem = {
         filtered_items = {

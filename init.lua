@@ -3,6 +3,14 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.guicursor =
   "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
+vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
+  fg = "#c9c6bd",
+  bg = "#f2efe4",
+})
+vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", {
+  fg = "#c9c6bd",
+  bg = "#f2efe4",
+})
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 

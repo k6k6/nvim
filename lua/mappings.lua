@@ -5,14 +5,14 @@ require "nvchad.mappings"
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jj", "<ESC> quit insert mode")
+map("i", "jj", "<ESC>", { desc = "quit insert mode" })
 map({ "n" }, "<leader>rub", "<cmd> !g++ % -g -o %:h/build/%:r.o <cr>", { desc = "Build the current cpp program" })
 map({ "n" }, "<leader>run", "<cmd> !./%:h/build/%:r.o <cr>", { desc = "Run the current cpp program" })
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w! <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
 -- Nvimtree
-map("n", "<leader>e", "<cmd> NvimTreeToggle <cr> <cmd> NvimTreeRefresh <cr>", { desc = "NvimTree toggle" })
-map("n", "<leader>a", "<cmd> NvimTreeFocus <cr> <cmd> NvimTreeRefresh <cr>", { desc = "NvimTree Focus" })
+map("n", "<leader>e", "<cmd> Neotree toggle source=last <cr>", { desc = "NeoTree toggle" })
+map("n", "<leader>a", "<cmd> Neotree focus source=last <cr>", { desc = "NeoTree Focus" })
 -- Buffer
 map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
 map("n", "<leader>k", "<cmd> bp <cr>", { desc = "previous buffer" })

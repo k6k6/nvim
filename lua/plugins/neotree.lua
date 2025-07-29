@@ -11,6 +11,7 @@ return {
     ---@module "neo-tree"
     ---@type neotree.Config
     opts = {
+      popup_border_style = "rounded",
       sources = {
         "filesystem",
         "buffers",
@@ -46,9 +47,22 @@ return {
         highlight_separator = "NeoTreeTabSeparatorInactive", -- string
         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
       },
+      default_component_configs = {
+        icon = {
+          default = "",
+        },
+      },
       filesystem = {
         filtered_items = {
-          visible = true,
+          visible = false,
+        },
+      },
+      window = {
+        mappings = {
+          ["h"] = "prev_source",
+          ["l"] = "next_source",
+          [">"] = "focus_preview",
+          ["'"] = "toggle_node",
         },
       },
     },

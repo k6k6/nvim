@@ -21,7 +21,7 @@ return {
         sources = { -- table
           {
             source = "filesystem", -- string
-            display_name = " Files", -- string | nil
+            display_name = " Files", -- string | nil
           },
           {
             source = "buffers", -- string

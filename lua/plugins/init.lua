@@ -7,9 +7,12 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
     event = "BufEnter",
-    opts = function()
-      return require "configs.treesitter"
-    end,
+    opts = require "configs.treesitter",
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    enable = false,
   },
 }

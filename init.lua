@@ -11,6 +11,11 @@ vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", {
   fg = "#c9c6bd",
   bg = "#f2efe4",
 })
+vim.api.nvim_set_hl(0, "myLSP", {
+  fg = "#bb4797",
+  bg = "#fff9e8",
+})
+
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 

@@ -13,6 +13,6 @@ return {
   },
   {
     "nvim-tree/nvim-tree.lua",
-    enable = false,
+    enabled = false,
   },
 }

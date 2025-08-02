@@ -75,7 +75,15 @@ local options = {
 lspconfig.clangd.setup {
   cmd = { "clangd" },
 }
-
+vim.lsp.config("basedpyright", {
+  settings = {
+    basedpyright = {
+      analysis = {
+        typeCheckingMode = "off",
+      },
+    },
+  },
+})
 vim.lsp.config("texlab", {
   settings = {
     texlab = {

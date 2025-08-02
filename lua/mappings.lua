@@ -6,8 +6,8 @@ local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>", { desc = "quit insert mode" })
-map({ "n" }, "<leader>rub", "<cmd> !g++ % -g -o %:h/build/%:r.o <cr>", { desc = "Build the current cpp program" })
-map({ "n" }, "<leader>run", "<cmd> !./%:h/build/%:r.o <cr>", { desc = "Run the current cpp program" })
+map({ "n" }, "<leader>rub", "<cmd> !g++ % -g -o %:h/build/%:t:r.o <cr>", { desc = "Build the current cpp program" })
+map({ "n" }, "<leader>run", "<cmd> !%:h/build/%:t:r.o <cr>", { desc = "Run the current cpp program" })
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
 -- Nvimtree

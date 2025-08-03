@@ -41,10 +41,10 @@ return {
         show_separator_on_edge = "true",
         content_layout = "center",
         -- separator_active = { left = "|", right = "|", override = "active" },
-        highlight_tab = "NeoTreeTabInactive", -- string
-        highlight_tab_active = "NeoTreeTabActive", -- string
-        highlight_background = "NeoTreeTabInactive", -- string
-        highlight_separator = "NeoTreeTabSeparatorInactive", -- string
+        highlight_tab = "NeoTreeTabActive", -- string
+        highlight_tab_active = "St_file_txt", -- string
+        highlight_background = "NeoTreeTabActive", -- string
+        highlight_separator = "NeoTreeTabSeparatorActive", -- string
         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
       },
       default_component_configs = {

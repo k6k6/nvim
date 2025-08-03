@@ -14,7 +14,7 @@ local function gen_block(icon, txt, sep_l_hlgroup, iconHl_group, txt_hl_group)
   return sep_l_hlgroup .. sep_l .. iconHl_group .. icon .. " " .. txt_hl_group .. " " .. txt .. sep_r
 end
 M.base46 = {
-  theme = "everforest_light",
+  theme = "aylin",
 
   -- hl_override = {
   -- 	Comment = { italic = true },

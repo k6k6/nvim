@@ -4,14 +4,14 @@ vim.g.maplocalleader = " "
 vim.opt.termguicolors = true
 vim.o.guicursor =
   "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
-vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
-  fg = "#c9c6bd",
-  bg = "#f2efe4",
-})
-vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", {
-  fg = "#c9c6bd",
-  bg = "#f2efe4",
-})
+-- vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
+-- fg = "#c9c6bd",
+-- bg = "#f2efe4",
+-- })
+-- vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", {
+-- fg = "#c9c6bd",
+-- bg = "#f2efe4",
+-- })
 vim.api.nvim_set_hl(0, "myLSP", {
   fg = "#bb4797",
   bg = "#fff9e8",

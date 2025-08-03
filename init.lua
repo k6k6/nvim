@@ -1,6 +1,7 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.opt.termguicolors = true
 vim.o.guicursor =
   "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
 vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
@@ -46,7 +47,24 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
 require "nvchad.autocmds"
-
 vim.schedule(function()
   require "mappings"
 end)
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*.tex",
+  callback = function()
+    vim.cmd [[
+  function! vimtex#log#info(msg, ...) abort
+    call luaeval("vim.notify(_A.msg, vim.log.levels.INFO, { title = 'VimTeX Info' })", {'msg': a:msg})
+  endfunction
+
+  function! vimtex#log#warning(msg, ...) abort
+    call luaeval("vim.notify(_A.msg, vim.log.levels.WARN, { title = 'VimTeX Warning' })", {'msg': a:msg})
+  endfunction
+
+  function! vimtex#log#error(msg, ...) abort
+    call luaeval("vim.notify(_A.msg, vim.log.levels.ERROR, { title = 'VimTeX Error' })", {'msg': a:msg})
+  endfunction
+    ]]
+  end,
+})

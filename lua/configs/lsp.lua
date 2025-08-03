@@ -80,6 +80,9 @@ vim.lsp.config("basedpyright", {
     basedpyright = {
       analysis = {
         typeCheckingMode = "off",
+        inlayHints = {
+          variableTypes = true,
+        },
       },
     },
   },

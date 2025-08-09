@@ -22,7 +22,7 @@ return {
         sources = { -- table
           {
             source = "filesystem", -- string
-            display_name = " Files", -- string | nil
+            display_name = " File", -- string | nil
           },
           {
             source = "buffers", -- string
@@ -38,7 +38,7 @@ return {
           },
         },
         winbar = true,
-        show_separator_on_edge = "true",
+        show_separator_on_edge = true,
         content_layout = "center",
         -- separator_active = { left = "|", right = "|", override = "active" },
         highlight_tab = "NeoTreeTabActive", -- string

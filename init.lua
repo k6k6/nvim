@@ -2,6 +2,7 @@ vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.termguicolors = true
+vim.o.clipboard = "unnamedplus"
 vim.o.guicursor =
   "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
 -- vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {

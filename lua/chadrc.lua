@@ -45,7 +45,7 @@ M.ui = {
   statusline = {
     theme = "minimal",
     separator_style = "round",
-    order = { "mode", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "c" },
+    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "c" },
     modules = {
       f = function()
         return "%#NeoTreeTabActive#good"
@@ -91,7 +91,7 @@ M.ui = {
         local m = vim.api.nvim_get_mode().mode
 
         return gen_block(
-          "",
+          "",
           modes[m][1],
           "%#St_" .. modes[m][2] .. "ModeSep#",
           "%#St_" .. modes[m][2] .. "Mode#",

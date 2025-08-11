@@ -79,9 +79,12 @@ vim.lsp.config("basedpyright", {
   settings = {
     basedpyright = {
       analysis = {
+        autoFormatStrings = true,
         typeCheckingMode = "off",
         inlayHints = {
           variableTypes = true,
+          callArgumentNames = true,
+          callArgumentNamesMatching = true,
         },
       },
     },

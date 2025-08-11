@@ -1,7 +1,7 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
-    python = { "ruff_format" },
+    python = { "pyink" },
     tex = { "latexindent" },
     css = { "prettierd" },
     html = { "prettierd" },
@@ -31,7 +31,7 @@ local options = {
 
   format_on_save = {
     -- These options will be passed to conform.format()
-    timeout_ms = 1000,
+    timeout_ms = 2000,
     lsp_fallback = true,
   },
 }

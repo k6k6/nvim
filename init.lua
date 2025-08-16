@@ -17,6 +17,13 @@ vim.api.nvim_set_hl(0, "myLSP", {
   fg = "#bb4797",
   bg = "#fff9e8",
 })
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function()
+    local orig = vim.api.nvim_get_hl(0, { name = "LspSignatureActiveParameter" })
+    local repfile = vim.api.nvim_get_hl(0, { name = "St_file_txt" })
+    vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { fg = repfile.fg, bg = orig.bg, bold = true })
+  end,
+})
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

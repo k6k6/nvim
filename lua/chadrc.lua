@@ -14,7 +14,7 @@ local function gen_block(icon, txt, sep_l_hlgroup, iconHl_group, txt_hl_group)
   return sep_l_hlgroup .. sep_l .. iconHl_group .. icon .. " " .. txt_hl_group .. " " .. txt .. sep_r
 end
 M.base46 = {
-  theme = "aylin",
+  theme = "tokyonight",
 
   -- hl_override = {
   -- 	Comment = { italic = true },
@@ -39,13 +39,15 @@ M.nvdash = {
 
 -- M.nvdash = { load_on_startup = true }
 M.ui = {
+  telescope = { style = "bordered" },
+  cmp = { style = "default" },
   tabufline = {
     lazyload = false,
   },
   statusline = {
     theme = "minimal",
     separator_style = "round",
-    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "c" },
+    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "outline", "clock" },
     modules = {
       f = function()
         return "%#NeoTreeTabActive#good"
@@ -98,10 +100,14 @@ M.ui = {
           "%#St_" .. modes[m][2] .. "ModeText#"
         )
       end,
-      c = function()
+      outline = function()
         local totalL = vim.fn.line "$"
         local name = "%l/" .. totalL
         return gen_block("", name, "%#St_Pos_sep#", "%#St_Pos_bg#", "%#St_Pos_txt#")
+      end,
+      clock = function()
+        local time = os.date "%H:%M"
+        return gen_block("", time, "%#St_cwd_sep#", "%#St_cwd_bg#", "%#St_cwd_txt#")
       end,
     },
   },

@@ -1,21 +1,48 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
+-- Some useful mappings
+
+map({ "n", "t" }, "<A-f>", function()
+  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+end, { desc = "terminal toggle floating term" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>", { desc = "quit insert mode" })
+
+-- C++ program autorun
+
 -- map({ "n" }, "<leader>rub", "<cmd> !g++ % -g -o %:h/build/%:t:r.o <cr>", { desc = "Build the current cpp program" })
 map({ "n" }, "<leader>run", "<cmd> !%:h/build/%:t:r.o <cr>", { desc = "Run the current cpp program" })
-map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
-map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
+
 -- Nvimtree
+
 map("n", "<leader>e", "<cmd> Neotree toggle source=last <cr>", { desc = "NeoTree toggle" })
 map("n", "<leader>a", "<cmd> Neotree focus source=last <cr>", { desc = "NeoTree Focus" })
+
 -- Buffer
-map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
-map("n", "<leader>k", "<cmd> bp <cr>", { desc = "previous buffer" })
+
+-- map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
+map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
+map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
+map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
+
+-- Window operations
+
+map({ "n", "i", "v" }, "<A-h>", "<C-w><", { desc = "switch window to left" })
+map({ "n", "i", "v" }, "<A-j>", "<C-w>-", { desc = "switch window to down" })
+map({ "n", "i", "v" }, "<A-k>", "<C-w>+", { desc = "switch window to up" })
+map({ "n", "i", "v" }, "<A-l>", "<C-w>>", { desc = "switch window to right" })
+map({ "n", "i", "v" }, "<leader>ws", "<C-w>s", { desc = "split window" })
+map({ "n", "i", "v" }, "<leader>wv", "<C-w>v", { desc = "vertical split window" })
+vim.keymap.set("n", "<leader>ww", function()
+  local picker = require "window-picker"
+  local picked_window = picker.pick_window()
+
+  if picked_window then
+    vim.api.nvim_set_current_win(picked_window)
+  end
+end, { desc = "Pick window" })
 
 -- LSP mappings
 
@@ -28,6 +55,7 @@ map("n", "<A-e>", function()
 end, { desc = "LSP rename" })
 
 -- DAP mappings
+
 map({ "n" }, "<leader>db", function()
   require("dap").toggle_breakpoint()
 end, { desc = "Toggle Breakpoint" })
@@ -37,13 +65,13 @@ map(
   "<cmd> !g++ % -g -o %:h/build/%:t:r.o <cr><cmd> lua require('dap').continue()<cr>",
   { desc = "Continue" }
 )
-map({ "n" }, "<leader>di", function()
+map({ "n" }, "<A-i>", function()
   require("dap").step_into()
 end, { desc = "Step Into" })
-map({ "n" }, "<leader>du", function()
+map({ "n" }, "<A-u>", function()
   require("dap").step_over()
 end, { desc = "Step Over" })
-map({ "n" }, "<leader>do", function()
+map({ "n" }, "<A-o>", function()
   require("dap").step_out()
 end, { desc = "Step Out" })
 map({ "n" }, "<leader>dr", function()

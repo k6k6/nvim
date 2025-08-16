@@ -3,11 +3,12 @@ return {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
-    opt = {
+    opts = {
       servers = {
-        clangd = {
-          mason = false,
-        },
+        ruff_lsp = false,
+        -- clangd = {
+        --   mason = false,
+        -- },
       },
     },
   },
@@ -21,7 +22,8 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = function()
-      return require "configs.lsp"
+      require "configs.lsp"
+      return {}
     end,
   },
 }

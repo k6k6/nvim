@@ -13,6 +13,17 @@ vim.o.guicursor =
 -- fg = "#c9c6bd",
 -- bg = "#f2efe4",
 -- })
+local orig_set_buf = vim.api.nvim_buf_set_extmark
+vim.api.nvim_buf_set_extmark = function(buffer, ns_id, line, col, opts)
+  local ok, result = pcall(orig_set_buf, buffer, ns_id, line, col, opts)
+  if not ok then
+    vim.schedule(function()
+      vim.notify(result, vim.log.levels.ERROR, { title = "Error" })
+    end)
+    return nil
+  end
+  return result
+end
 vim.api.nvim_set_hl(0, "myLSP", {
   fg = "#bb4797",
   bg = "#fff9e8",
@@ -24,7 +35,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { fg = repfile.fg, bg = orig.bg, bold = true })
   end,
 })
-
+vim.api.nvim_create_autocmd("TextChanged", {
+  callback = function()
+    vim.cmd "normal! zx"
+  end,
+})
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 

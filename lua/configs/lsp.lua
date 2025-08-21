@@ -83,6 +83,20 @@ vim.lsp.config("ruff", {
     },
   },
 })
+vim.lsp.config("markdown_oxide", {
+  capabilities = vim.tbl_deep_extend("force", nvlsp.capabilities, {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    },
+  }),
+  settings = {
+    completion = {
+      enable = true,
+    },
+  },
+})
 masonlsp.setup {
   handlers = {
     function(server)

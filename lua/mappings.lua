@@ -29,13 +29,13 @@ map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
 
 -- Window operations
 
-map({ "n", "i", "v" }, "<A-h>", "<C-w><", { desc = "switch window to left" })
-map({ "n", "i", "v" }, "<A-j>", "<C-w>-", { desc = "switch window to down" })
-map({ "n", "i", "v" }, "<A-k>", "<C-w>+", { desc = "switch window to up" })
-map({ "n", "i", "v" }, "<A-l>", "<C-w>>", { desc = "switch window to right" })
-map({ "n", "i", "v" }, "<leader>ws", "<C-w>s", { desc = "split window" })
-map({ "n", "i", "v" }, "<leader>wv", "<C-w>v", { desc = "vertical split window" })
-vim.keymap.set("n", "<leader>ww", function()
+map({ "n", "v" }, "<A-h>", "<C-w><", { desc = "switch window to left" })
+map({ "n", "v" }, "<A-j>", "<C-w>-", { desc = "switch window to down" })
+map({ "n", "v" }, "<A-k>", "<C-w>+", { desc = "switch window to up" })
+map({ "n", "v" }, "<A-l>", "<C-w>>", { desc = "switch window to right" })
+map({ "n", "v" }, "<leader>ws", "<C-w>s", { desc = "split window" })
+map({ "n", "v" }, "<leader>wv", "<C-w>v", { desc = "vertical split window" })
+map({ "n", "v" }, "<leader>ww", function()
   local picker = require "window-picker"
   local picked_window = picker.pick_window()
 

@@ -8,7 +8,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufEnter",
+    lazy = false,
     opts = require "configs.treesitter",
   },
   {

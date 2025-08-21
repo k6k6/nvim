@@ -15,6 +15,7 @@ local function gen_block(icon, txt, sep_l_hlgroup, iconHl_group, txt_hl_group)
 end
 M.base46 = {
   theme = "tokyonight",
+  theme_toggle = { "tokyonight", "blossom_light" },
 
   -- hl_override = {
   -- 	Comment = { italic = true },
@@ -92,13 +93,15 @@ M.ui = {
         local modes = utils.modes
         local m = vim.api.nvim_get_mode().mode
 
-        return gen_block(
-          "",
-          modes[m][1],
-          "%#St_" .. modes[m][2] .. "ModeSep#",
-          "%#St_" .. modes[m][2] .. "Mode#",
-          "%#St_" .. modes[m][2] .. "ModeText#"
-        )
+        return "%#St_"
+          .. modes[m][2]
+          .. "Mode#"
+          .. "  "
+          .. modes[m][1]
+          .. "%#St_"
+          .. modes[m][2]
+          .. "ModeSep#"
+          .. separators["right"]
       end,
       outline = function()
         local totalL = vim.fn.line "$"

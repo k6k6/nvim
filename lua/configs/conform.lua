@@ -12,7 +12,7 @@ local options = {
     json = { "prettierd" },
     jsonc = { "prettierd" },
     yaml = { "yamlfmt" },
-    markdown = { "prettierd" },
+    markdown = { "prettierd", "mdsf" },
     sh = { "shfmt" },
     bash = { "shfmt" },
     c = { "clang_format" },
@@ -27,6 +27,7 @@ local options = {
       command = "latexindent",
       prepend_args = { "-l", "/home/kong/defaultSettings.yaml" },
     },
+    mdslw = { prepend_args = { "--stdin-filepath", "$FILENAME" } },
   },
 
   format_on_save = {

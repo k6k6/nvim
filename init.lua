@@ -30,9 +30,15 @@ vim.api.nvim_set_hl(0, "myLSP", {
 })
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
-    local orig = vim.api.nvim_get_hl(0, { name = "LspSignatureActiveParameter" })
+    -- local orig = vim.api.nvim_get_hl(0, { name = "LspSignatureActiveParameter" })
     local repfile = vim.api.nvim_get_hl(0, { name = "St_file_txt" })
-    vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { fg = repfile.fg, bg = orig.bg, bold = true })
+    vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { fg = repfile.fg, bold = true })
+  end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local orig = vim.api.nvim_get_hl(0, { name = "@comment" })
+    vim.api.nvim_set_hl(0, "@comment", { fg = orig.fg, bg = orig.bg, italic = true })
   end,
 })
 vim.api.nvim_create_autocmd("TextChanged", {

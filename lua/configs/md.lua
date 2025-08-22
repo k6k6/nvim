@@ -421,7 +421,7 @@ local options = {
         --- Use 'shiftwidth' value.
         return vim.bo[buffer].shiftwidth or 4
       end,
-      shift_width = 0,
+      shift_width = 1,
 
       marker_minus = {
         add_padding = true,
@@ -657,11 +657,11 @@ local options = {
     },
 
     tables = {
-      enable = true,
-      strict = false,
+      -- enable = true,
+      -- strict = true,
 
-      col_min_width = 10,
-      block_decorator = true,
+      -- col_min_width = 10,
+      -- block_decorator = true,
       use_virt_lines = true,
 
       parts = {
@@ -677,20 +677,20 @@ local options = {
         align_right = "╾",
         align_center = { "╴", "╶" },
       },
-
-      hl = {
-        top = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
-        header = { "TableHeader", "TableHeader", "TableHeader" },
-        separator = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
-        row = { "TableBorder", "TableBorder", "TableBorder" },
-        bottom = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
-
-        overlap = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
-
-        align_left = "TableAlignLeft",
-        align_right = "TableAlignRight",
-        align_center = { "TableAlignCenter", "TableAlignCenter" },
-      },
+      --
+      --   hl = {
+      --     top = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+      --     header = { "TableHeader", "TableHeader", "TableHeader" },
+      --     separator = { "TableHeader", "TableHeader", "TableHeader", "TableHeader" },
+      --     row = { "TableBorder", "TableBorder", "TableBorder" },
+      --     bottom = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+      --
+      --     overlap = { "TableBorder", "TableBorder", "TableBorder", "TableBorder" },
+      --
+      --     align_left = "TableAlignLeft",
+      --     align_right = "TableAlignRight",
+      --     align_center = { "TableAlignCenter", "TableAlignCenter" },
+      --   },
     },
   },
   markdown_inline = {
@@ -1208,6 +1208,29 @@ local options = {
         icon = " ",
         hl = "MarkviewPalette2Fg",
       },
+    },
+  },
+  latex = {
+    fonts = {
+      enabled = true,
+      default = {
+        enable = true,
+        hl = "MarkviewSpecial",
+      },
+
+      mathbf = { enable = true },
+      mathbfit = { enable = true },
+      mathcal = { enable = true },
+      mathbfscr = { enable = true },
+      mathfrak = { enable = true },
+      mathbb = { enable = true },
+      mathbffrak = { enable = true },
+      mathsf = { enable = true },
+      mathsfbf = { enable = true },
+      mathsfit = { enable = true },
+      mathsfbfit = { enable = true },
+      mathtt = { enable = true },
+      mathrm = { enable = true },
     },
   },
 }

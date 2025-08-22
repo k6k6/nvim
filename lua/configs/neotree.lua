@@ -36,6 +36,11 @@ local options = {
     highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
   },
   default_component_configs = {
+    git_status = {
+      symbols = {
+        deleted = "",
+      },
+    },
     icon = {
       default = "",
       highlight = false,

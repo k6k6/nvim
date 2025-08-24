@@ -83,6 +83,9 @@ vim.lsp.config("ruff", {
     },
   },
 })
+vim.lsp.config("dprint", {
+  enable = false,
+})
 -- vim.lsp.config("markdown_oxide", {
 --   capabilities = vim.tbl_deep_extend("force", nvlsp.capabilities, {
 --     workspace = {

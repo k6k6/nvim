@@ -1,7 +1,62 @@
+local operator = function(name, text_pos, cmd_conceal, cmd_hl)
+  return {
+    condition = function(item)
+      return #item.args == 1
+    end,
+
+    on_command = function(item)
+      local symbols = require "markview.symbols"
+
+      return {
+        end_col = item.range[2] + (cmd_conceal or 1),
+        conceal = "",
+
+        virt_text_pos = text_pos or "overlay",
+        virt_text = {
+          { symbols.entries[name], cmd_hl or "@keyword.function" },
+          --{ symbols.tostring("default", name), cmd_hl or "@keyword.function" },
+        },
+
+        hl_mode = "combine",
+      }
+    end,
+
+    on_args = {
+      {
+        on_before = function(item)
+          return {
+            end_col = item.range[2] + 1,
+
+            virt_text_pos = "overlay",
+            virt_text = {
+              { "(", "@punctuation.bracket" },
+            },
+
+            hl_mode = "combine",
+          }
+        end,
+
+        after_offset = function(range)
+          return { range[1], range[2], range[3], range[4] - 1 }
+        end,
+
+        on_after = function(item)
+          return {
+            end_col = item.range[4],
+
+            virt_text_pos = "overlay",
+            virt_text = {
+              { ")", "@punctuation.bracket" },
+            },
+
+            hl_mode = "combine",
+          }
+        end,
+      },
+    },
+  }
+end
 local options = {
-  experimental = {
-    check_rtp = true,
-  },
   preview = {
     hybrid_modes = { "n", "no", "c" },
     linewise_hybrid_mode = true,
@@ -1211,8 +1266,46 @@ local options = {
     },
   },
   latex = {
+    enable = true,
+
+    blocks = {
+      enable = true,
+
+      hl = "MarkviewCode",
+      pad_char = " ",
+      pad_amount = 3,
+
+      text = "  LaTeX ",
+      text_hl = "MarkviewCodeInfo",
+    },
+
+    commands = {
+      enable = true,
+
+      ["sqrt"] = operator("sqrt", "inline", 5),
+      --   function()
+      --   local symbols = require "markview.symbols"
+      --   return operator(symbols.entries.sqrt) --, "inline", 5)
+      -- end,
+      ["lvert"] = operator("vert", "inline", 6),
+      --   function()
+      --   local symbols = require "markview.symbols"
+      --   return operator(symbols.entries.vert, "inline", 6)
+      -- end,
+      ["lVert"] = operator("Vert", "inline", 6),
+      --   function()
+      --   local symbols = require "markview.symbols"
+      --   return operator(symbols.entries.Vert, "inline", 6)
+      -- end,
+    },
+
+    escapes = {
+      enable = true,
+    },
+
     fonts = {
-      enabled = true,
+      enable = true,
+
       default = {
         enable = true,
         hl = "MarkviewSpecial",
@@ -1231,6 +1324,41 @@ local options = {
       mathsfbfit = { enable = true },
       mathtt = { enable = true },
       mathrm = { enable = true },
+    },
+
+    inlines = {
+      enable = true,
+
+      padding_left = " ",
+      padding_right = " ",
+
+      hl = "MarkviewInlineCode",
+    },
+
+    parenthesis = {
+      enable = true,
+    },
+
+    subscripts = {
+      enable = true,
+
+      hl = "MarkviewSubscript",
+    },
+
+    superscripts = {
+      enable = true,
+
+      hl = "MarkviewSuperscript",
+    },
+
+    symbols = {
+      enable = true,
+
+      hl = "MarkviewComment",
+    },
+
+    texts = {
+      enable = true,
     },
   },
 }

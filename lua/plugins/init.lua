@@ -5,6 +5,13 @@ return {
     opts = require "configs.conform",
   },
   {
+    "mfussenegger/nvim-lint",
+    event = "BufWritePre",
+    config = function()
+      require "configs.lint"
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     lazy = false,

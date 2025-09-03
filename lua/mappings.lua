@@ -1,34 +1,39 @@
 require "nvchad.mappings"
-
 local map = vim.keymap.set
 
 -- Some useful mappings
-
 map({ "n", "t" }, "<A-f>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "terminal toggle floating term" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>", { desc = "quit insert mode" })
+map("n", "<leader>gi", function()
+  require("snacks").lazygit()
+end, { desc = "open float lazygit" })
+map({ "n" }, "<leader>wp", function()
+  vim.o.wrap = not vim.o.wrap
+end, { desc = "switch between wrap and nowrap" })
 
 -- C++ program autorun
-
--- map({ "n" }, "<leader>rub", "<cmd> !g++ % -g -o %:h/build/%:t:r.o <cr>", { desc = "Build the current cpp program" })
+map({ "n" }, "<leader>rub", function()
+  local _, result = pcall(vim.fn.execute, "!g++ % -g -o %:h/build/%:t:r.o")
+  vim.notify(result, vim.log.levels.INFO, { title = "Cpp Build" })
+end, { desc = "Build the current cpp program" })
 map({ "n" }, "<leader>run", "<cmd> !%:h/build/%:t:r.o <cr>", { desc = "Run the current cpp program" })
 
 -- Nvimtree
-
 map("n", "<leader>e", "<cmd> Neotree toggle source=last <cr>", { desc = "NeoTree toggle" })
 map("n", "<leader>a", "<cmd> Neotree focus source=last <cr>", { desc = "NeoTree Focus" })
 
 -- Buffer
-
 -- map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
 map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
-map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
+map({ "n", "v", "i" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
-
+map({ "n", "v" }, "<leader>ds", function()
+  require("snacks").bufdelete()
+end, { desc = "buffer delete withou window" })
 -- Window operations
-
 map({ "n", "v" }, "<A-h>", "<C-w><", { desc = "switch window to left" })
 map({ "n", "v" }, "<A-j>", "<C-w>-", { desc = "switch window to down" })
 map({ "n", "v" }, "<A-k>", "<C-w>+", { desc = "switch window to up" })
@@ -45,7 +50,6 @@ map({ "n", "v" }, "<leader>ww", function()
 end, { desc = "Pick window" })
 
 -- LSP mappings
-
 map("n", "<A-e>", function()
   if vim.bo.filetype == "NvimTree" then
     require("nvim-tree.api").fs.rename()
@@ -55,16 +59,10 @@ map("n", "<A-e>", function()
 end, { desc = "LSP rename" })
 
 -- DAP mappings
-
 map({ "n" }, "<leader>db", function()
   require("dap").toggle_breakpoint()
 end, { desc = "Toggle Breakpoint" })
-map(
-  { "n" },
-  "<leader>dc",
-  "<cmd> !g++ % -g -o %:h/build/%:t:r.o <cr><cmd> lua require('dap').continue()<cr>",
-  { desc = "Continue" }
-)
+map({ "n" }, "<A-c>", "<cmd> lua require('dap').continue()<cr>", { desc = "Continue" })
 map({ "n" }, "<A-i>", function()
   require("dap").step_into()
 end, { desc = "Step Into" })

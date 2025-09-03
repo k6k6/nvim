@@ -28,12 +28,15 @@ local options = {
     winbar = true,
     show_separator_on_edge = true,
     content_layout = "center",
+    -- tabs_layout = "center",
+    -- tabs_min_width = 8,
     -- separator_active = { left = "|", right = "|", override = "active" },
-    highlight_tab = "NeoTreeTabActive", -- string
-    highlight_tab_active = "St_file_txt", -- string
-    highlight_background = "NeoTreeTabActive", -- string
-    highlight_separator = "NeoTreeTabSeparatorActive", -- string
-    highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
+    separator = { left = "", right = "" },
+    highlight_tab = "mytab", -- string
+    highlight_tab_active = "St_cwd_bg", -- string
+    highlight_background = "St_cwd_bg", -- string
+    highlight_separator = "mytabsep", -- string
+    highlight_separator_active = "St_cwd_sep", -- string
   },
   default_component_configs = {
     git_status = {
@@ -65,6 +68,7 @@ local options = {
     },
   },
   window = {
+    width = 36,
     mappings = {
       ["h"] = "prev_source",
       ["l"] = "next_source",

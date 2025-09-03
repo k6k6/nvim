@@ -45,7 +45,6 @@ return {
   },
   {
     "OXY2DEV/markview.nvim",
-    -- enabled = false,
     opts = function()
       return require "configs.md"
     end,

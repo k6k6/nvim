@@ -305,10 +305,19 @@ local options = {
 
       heading_1 = {
         style = "icon",
+        align = "center",
+        corner_left = "",
+        corner_right = "",
+        padding_left = "",
+        padding_right = "",
+        padding_left_hl = "St_Pos_sep",
+        padding_right_hl = "St_Pos_sep",
         sign = "󰌕 ",
         sign_hl = "MarkviewHeading1",
 
         icon = "󰲠 ",
+        -- hl = "St_Pos_bg",
+        -- icon = " ",
         hl = "MarkviewHeading1",
       },
       heading_2 = {
@@ -372,9 +381,9 @@ local options = {
 
       shift_width = 0,
 
-      org_indent = false,
-      org_indent_wrap = true,
-      org_shift_char = " ",
+      org_indent = true,
+      -- org_indent_wrap = false,
+      org_shift_char = "  ",
       org_shift_width = 1,
     },
 
@@ -476,10 +485,10 @@ local options = {
         --- Use 'shiftwidth' value.
         return vim.bo[buffer].shiftwidth or 4
       end,
-      shift_width = 1,
+      shift_width = 0,
 
       marker_minus = {
-        add_padding = true,
+        add_padding = false,
         conceal_on_checkboxes = true,
 
         text = "●",
@@ -487,7 +496,7 @@ local options = {
       },
 
       marker_plus = {
-        add_padding = true,
+        add_padding = false,
         conceal_on_checkboxes = true,
 
         text = "◈",
@@ -495,7 +504,7 @@ local options = {
       },
 
       marker_star = {
-        add_padding = true,
+        add_padding = false,
         conceal_on_checkboxes = true,
 
         text = "◇",
@@ -503,12 +512,12 @@ local options = {
       },
 
       marker_dot = {
-        add_padding = true,
+        add_padding = false,
         conceal_on_checkboxes = true,
       },
 
       marker_parenthesis = {
-        add_padding = true,
+        add_padding = false,
         conceal_on_checkboxes = true,
       },
     },
@@ -716,8 +725,8 @@ local options = {
       -- strict = true,
 
       -- col_min_width = 10,
-      -- block_decorator = true,
-      use_virt_lines = true,
+      block_decorator = false,
+      use_virt_lines = false,
 
       parts = {
         top = { "╭", "─", "╮", "┬" },
@@ -1273,7 +1282,7 @@ local options = {
 
       hl = "MarkviewCode",
       pad_char = " ",
-      pad_amount = 3,
+      pad_amount = 0,
 
       text = "  LaTeX ",
       text_hl = "MarkviewCodeInfo",

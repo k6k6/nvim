@@ -7,6 +7,7 @@ return {
     -- animate = { enabled = true },
     bigfile = { enabled = true },
     indent = { enabled = true },
+    bufdelte = { enable = true },
     -- lazygit = { enabled = true },
     scroll = { enabled = true },
     words = { enabled = true },

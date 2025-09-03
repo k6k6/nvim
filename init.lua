@@ -2,11 +2,14 @@ vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.termguicolors = true
+vim.opt.viewoptions = "folds,cursor"
 vim.o.clipboard = "unnamedplus"
 vim.o.guicursor =
   "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
 
 -- Neotree source selector highlight group
+vim.api.nvim_set_hl(0, "mytab", { fg = "#141414", bg = "#777777" })
+vim.api.nvim_set_hl(0, "mytabsep", { fg = "#777777" })
 -- vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
 -- fg = "#c9c6bd",
 -- bg = "#f2efe4",
@@ -21,7 +24,17 @@ local orig_set_buf = vim.api.nvim_buf_set_extmark
 vim.api.nvim_buf_set_extmark = function(buffer, ns_id, line, col, opts)
   local ok, result = pcall(orig_set_buf, buffer, ns_id, line, col, opts)
   if not ok then
-    if result == "invalid key: ns_id" or result == "Invalid 'end_col': out of range" then
+    if
+      result == "invalid key: ns_id"
+      or result == "Invalid 'end_col': out of range"
+      or result == "Invalid 'col': out of range"
+      or result == "Invalid 'end_row': out of range"
+    then
+      return nil
+    end
+    if
+      result == "/usr/local/share/nvim/runtime/lua/vim/treesitter/_range.lua:191: Invalid 'index': Expected Lua number"
+    then
       return nil
     end
     vim.schedule(function()
@@ -61,9 +74,41 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- auto-update treesitter fold tree when textchanged
-vim.api.nvim_create_autocmd("TextChanged", {
+vim.api.nvim_create_autocmd("BufWritePost", {
   callback = function()
     vim.cmd "normal! zx"
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = "*.*",
+  command = "mkview",
+  -- callback = function(args)
+  --   local exclude_types = { "terminal", "help", "quickfix", "nofile", "nowrite", "acwrite" }
+  --   local buftype = vim.fn.getbufvar(args.buf, "&buftype")
+  --   if vim.tbl_contains(exclude_types, buftype) then
+  --     return
+  --   end
+  --   vim.cmd "mkview"
+  -- end,
+})
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
+  pattern = "*.*",
+  command = "silent! loadview",
+  -- callback = function(args)
+  --   local exclude_types = { "terminal", "help", "quickfix", "nofile", "nowrite", "acwrite" }
+  --   local buftype = vim.fn.getbufvar(args.buf, "&buftype")
+  --   if vim.tbl_contains(exclude_types, buftype) then
+  --     return
+  --   end
+  --   vim.cmd "loadview"
+  -- end,
+})
+
+-- set shiftwidth=2 for all files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt.shiftwidth = 2
   end,
 })
 

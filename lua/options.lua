@@ -5,6 +5,7 @@ require "nvchad.options"
 local o = vim.o
 o.cursorlineopt = "both" -- to enable cursorline!
 o.relativenumber = true
+o.wrap = false
 
 -- vim.opt.fillchars = {
 --   eob = " ", -- 当文件末尾没有更多内容时显示

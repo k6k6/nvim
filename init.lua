@@ -75,8 +75,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- auto-update treesitter fold tree when textchanged
 vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.*",
   callback = function()
     vim.cmd "normal! zx"
+    vim.cmd "silent! loadview"
   end,
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -91,7 +93,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   --   vim.cmd "mkview"
   -- end,
 })
-vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = "*.*",
   command = "silent! loadview",
   -- callback = function(args)

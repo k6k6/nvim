@@ -382,7 +382,7 @@ local options = {
       shift_width = 0,
 
       org_indent = true,
-      -- org_indent_wrap = false,
+      org_indent_wrap = false,
       org_shift_char = "  ",
       org_shift_width = 1,
     },

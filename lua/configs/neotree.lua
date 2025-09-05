@@ -66,6 +66,17 @@ local options = {
       -- visible = true,
       -- hide_dotfiles = false,
     },
+    -- find_by_full_path_words = true, -- `false` means it only searches the tail of a path.
+    -- find_command = "fd",
+    -- find_args = { -- you can specify extra args to pass to the find command.
+    --   fd = {
+    --     "--hidden",
+    --     "--exclude",
+    --     ".git",
+    --     "--exclude",
+    --     "node_modules",
+    --   },
+    -- },
   },
   window = {
     width = 36,

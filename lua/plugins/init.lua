@@ -55,11 +55,11 @@ return {
     opts = {
       servers = {
         ruff_lsp = false,
-        -- clangd = {
-        --   mason = false,
-        -- },
       },
     },
+    config = function()
+      require "configs.lsp"
+    end,
   },
   {
     "williamboman/mason.nvim",
@@ -68,15 +68,30 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
-    opts = function()
-      require "configs.lsp"
-      return {}
-    end,
+    opts = {},
+    -- opts = function()
+    -- require "configs.lsp"
+    -- return {}
+    -- end,
   },
   {
     "hrsh7th/nvim-cmp",
+    dependencies = { "kdheepak/cmp-latex-symbols" },
     opts = function(_, opts)
       local cmp = require "cmp"
+      opts.sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "nvim_lua" },
+        { name = "async_path" },
+        {
+          name = "latex_symbols",
+          option = {
+            strategy = 2,
+          },
+        },
+      }
       opts.window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),

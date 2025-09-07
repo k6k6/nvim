@@ -725,7 +725,7 @@ local options = {
       -- strict = true,
 
       -- col_min_width = 10,
-      block_decorator = false,
+      block_decorator = true,
       use_virt_lines = false,
 
       parts = {
@@ -1306,6 +1306,8 @@ local options = {
       --   local symbols = require "markview.symbols"
       --   return operator(symbols.entries.Vert, "inline", 6)
       -- end,
+      ["Lfloor"] = operator("lfloor", "inline", 7),
+      ["Lceil"] = operator("lceil", "inline", 6),
     },
 
     escapes = {

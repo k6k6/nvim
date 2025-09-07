@@ -24,22 +24,6 @@ local orig_set_buf = vim.api.nvim_buf_set_extmark
 vim.api.nvim_buf_set_extmark = function(buffer, ns_id, line, col, opts)
   local ok, result = pcall(orig_set_buf, buffer, ns_id, line, col, opts)
   if not ok then
-    if
-      result == "invalid key: ns_id"
-      or result == "Invalid 'end_col': out of range"
-      or result == "Invalid 'col': out of range"
-      or result == "Invalid 'end_row': out of range"
-    then
-      return nil
-    end
-    if
-      result == "/usr/local/share/nvim/runtime/lua/vim/treesitter/_range.lua:191: Invalid 'index': Expected Lua number"
-    then
-      return nil
-    end
-    vim.schedule(function()
-      vim.notify(result, vim.log.levels.ERROR, { title = "Error" })
-    end)
     return nil
   end
   return result
@@ -66,7 +50,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- make the comment font italic
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local orig = vim.api.nvim_get_hl(0, { name = "@comment" })
     vim.api.nvim_set_hl(0, "@comment", { fg = orig.fg, bg = orig.bg, italic = true })
@@ -96,14 +80,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = "*.*",
   command = "silent! loadview",
-  -- callback = function(args)
-  --   local exclude_types = { "terminal", "help", "quickfix", "nofile", "nowrite", "acwrite" }
-  --   local buftype = vim.fn.getbufvar(args.buf, "&buftype")
-  --   if vim.tbl_contains(exclude_types, buftype) then
-  --     return
-  --   end
-  --   vim.cmd "loadview"
-  -- end,
 })
 
 -- set shiftwidth=2 for all files

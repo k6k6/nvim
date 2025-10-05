@@ -3,13 +3,15 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.termguicolors = true
 vim.opt.viewoptions = "folds,cursor"
+vim.opt.sessionoptions="help,winpos,resize,folds,terminal,winsize,blank"
 vim.o.clipboard = "unnamedplus"
-vim.o.guicursor =
-  "n-v-c-sm:block,i-ci-ve:ver25-Cursor-blinkwait300-blinkon200-blinkoff150,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor"
+-------------------------------------------------------------------------------- Markview highlight group --------------------------------------------------------------------------
+vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#29c3dd", italic = true, bold = true })
 
--- Neotree source selector highlight group
+------------------------------------------------------------------------- Neotree source selector highlight group ------------------------------------------------------------------
 vim.api.nvim_set_hl(0, "mytab", { fg = "#141414", bg = "#777777" })
 vim.api.nvim_set_hl(0, "mytabsep", { fg = "#777777" })
+vim.api.nvim_set_hl(0, "NeoTreeTab", { fg = "", bg = "#192141" })
 -- vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
 -- fg = "#c9c6bd",
 -- bg = "#f2efe4",
@@ -19,28 +21,30 @@ vim.api.nvim_set_hl(0, "mytabsep", { fg = "#777777" })
 -- bg = "#f2efe4",
 -- })
 
--- override nvim_buf_set_extmark to send error msg by vim.notify
-local orig_set_buf = vim.api.nvim_buf_set_extmark
-vim.api.nvim_buf_set_extmark = function(buffer, ns_id, line, col, opts)
-  local ok, result = pcall(orig_set_buf, buffer, ns_id, line, col, opts)
-  if not ok then
-    return nil
-  end
-  return result
-end
+------------------------------------------------------- override nvim_buf_set_extmark to send error msg by vim.notify --------------------------------------------------------------------
+-- local orig_set_buf = vim.api.nvim_buf_set_extmark
+-- vim.api.nvim_buf_set_extmark = function(...)
+--   local ok, result = pcall(orig_set_buf, ...)
+--   -- if not ok then
+--   -- vim.schedule(function()
+--   --   vim.notify(result, vim.log.levels.ERROR, { title = "ERROR" })
+--   -- end)
+--   -- end
+--   return result
+-- end
 vim.api.nvim_set_hl(0, "myLSP", {
   fg = "#bb4797",
   bg = "#fff9e8",
 })
 
--- nvim-lint auto-lint on saved
+---------------------------------------------------------------------- nvim-lint auto-lint on saved -----------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
   callback = function()
     require("lint").try_lint()
   end,
 })
 
--- lsp signature activeparameter highlight group setting
+----------------------------------------------------------- lsp signature activeparameter highlight group setting -------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
     -- local orig = vim.api.nvim_get_hl(0, { name = "LspSignatureActiveParameter" })
@@ -49,15 +53,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- make the comment font italic
-vim.api.nvim_create_autocmd("VimEnter", {
+--------------------------------------------------------------- make the comment font italic and bold --------------------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd({ "FileType", "BufWritePost", "VimEnter" }, {
+  pattern = "*",
   callback = function()
     local orig = vim.api.nvim_get_hl(0, { name = "@comment" })
     vim.api.nvim_set_hl(0, "@comment", { fg = orig.fg, bg = orig.bg, italic = true })
   end,
 })
 
--- auto-update treesitter fold tree when textchanged
+------------------------------------------------------------- auto-update treesitter fold tree when textchanged --------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.*",
   callback = function()
@@ -82,7 +87,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   command = "silent! loadview",
 })
 
--- set shiftwidth=2 for all files
+------------------------------------------------------------------------ set shiftwidth=2 for all files -----------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
@@ -90,7 +95,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- bootstrap lazy and all plugins
+------------------------------------------------------------------------- bootstrap lazy and all plugins ---------------------------------------------------------------
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.uv.fs_stat(lazypath) then
@@ -110,7 +115,7 @@ require("lazy").setup({
     branch = "v2.5",
     import = "nvchad.plugins",
   },
-
+  -- { import = "nvchad.blink.lazyspec" },
   { import = "plugins" },
 }, lazy_config)
 
@@ -125,7 +130,7 @@ vim.schedule(function()
   require "mappings"
 end)
 
--- override vimtex's error sending function with vim.notify
+---------------------------------------------------------------- override vimtex's error sending function with vim.notify ---------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.tex",
   callback = function()

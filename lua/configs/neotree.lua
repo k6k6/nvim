@@ -25,7 +25,9 @@ local options = {
         display_name = " Syms",
       },
     },
-    winbar = true,
+    winbar = false,
+    statusline = false,
+		-- show_scrolled_off_parent_node = true,
     show_separator_on_edge = true,
     content_layout = "center",
     -- tabs_layout = "center",
@@ -86,6 +88,7 @@ local options = {
       [">"] = "focus_preview",
       ["'"] = "toggle_node",
     },
+    -- popup=false,
   },
 }
 return options

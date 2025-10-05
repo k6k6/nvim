@@ -18,10 +18,6 @@ return {
     opts = require "configs.treesitter",
   },
   {
-    "nvim-tree/nvim-tree.lua",
-    enabled = false,
-  },
-  {
     "fasterius/simple-zoom.nvim",
     keys = {
       {
@@ -75,10 +71,16 @@ return {
     -- end,
   },
   {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+  },
+  {
     "hrsh7th/nvim-cmp",
+    -- enabled = false,
     dependencies = { "kdheepak/cmp-latex-symbols" },
     opts = function(_, opts)
       local cmp = require "cmp"
+      require "snippets.init"
       opts.sources = {
         { name = "nvim_lsp" },
         { name = "luasnip" },
@@ -100,7 +102,57 @@ return {
     end,
   },
   {
+    "nvim-mini/mini.pairs",
+    version = false,
+    event = "BufEnter",
+    config = function()
+      require("mini.pairs").setup()
+    end,
+  },
+  {
+    "nvim-mini/mini.surround",
+    version = false,
+    event = "InsertEnter",
+    config = function()
+      require("mini.surround").setup()
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    enabled = false,
+  },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    enabled = false,
+    event = "BufEnter",
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    -- enabled=false,
+    -- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    ft = "markdown",
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      heading = {
+        position = "inline",
+        signs = { "󰌕", "󰌖", "", "", "", "", "" },
+        backgrounds = {},
+      },
+      indent = {
+        enabled = true,
+        icon = " ",
+      },
+      bullet = {
+        left_pad = 1,
+      },
+    },
+  },
+  {
     "OXY2DEV/markview.nvim",
+    enabled = false,
     opts = function()
       return require "configs.md"
     end,
@@ -108,7 +160,26 @@ return {
     priority = 44,
   },
   {
+    "iamcco/markdown-preview.nvim",
+    -- enabled = false,
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = "cd app && yarn install",
+    keys = {
+      { "<leader>mk", "<cmd>MarkdownPreviewToggle<CR>", desc = "Toggle markdown preview", mode = "n" },
+    },
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+      -- vim.g.mkdp_browser = "zen-browser"
+    end,
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    enabled = false,
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
+    -- enabled=false,
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -157,11 +228,35 @@ return {
       -- animate = { enabled = true },
       bigfile = { enabled = true },
       indent = { enabled = true },
-      bufdelte = { enable = true },
+      bufdelte = { enabled = true },
+      -- image = { enabled = true },
       -- lazygit = { enabled = true },
-      scroll = { enabled = true },
+      -- scroll = { enabled = true },
       words = { enabled = true },
     },
+  },
+  {
+    "3rd/image.nvim",
+    enabled = false,
+    build = false,
+    event = "VeryLazy",
+    opts = {
+      backend = "sixel",
+      processor = "magick_cli",
+      integrations = {
+        markdown = {
+          enabled = false,
+          only_render_image_at_cursor = true,
+          only_render_image_at_cursor_mode = "inline",
+          -- floating_windows = true,
+        },
+      },
+    },
+    -- config = function()
+    -- require("image").setup {
+    -- backend = "sixel",
+    -- }
+    -- end,
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -171,7 +266,7 @@ return {
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+    build = "make",
   },
   {
     "folke/trouble.nvim",
@@ -211,7 +306,9 @@ return {
     init = function()
       vim.g.tex_flavor = "latex"
       vim.g.vimtex_quickfix_mode = 0
-      vim.g.vimtex_view_method = "zathura"
+      vim.g.vimtex_view_general_viewer = "llpp"
+      -- vim.g.vimtex_view_general_options = "-remote /tmp/llpp.remote @pdf"
+      -- vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_ui_method = {
         conform = "nvim",
         input = "nvim",
@@ -237,15 +334,16 @@ return {
       }
       vim.o.conceallevel = 2
       vim.o.concealcursor = "nc"
-      -- vim.g.vimtex_compiler_method = "latexmk"
-      -- vim.g.vimtex_compiler_latexmk = {
-      -- options = {
-      -- "-xelatex",
-      -- "-file-line-error",
-      -- "-interaction=nonstopmode",
-      -- "-synctex=1",
-      -- },
-      -- }
+      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_compiler_latexmk_engines = {
+        _ = "-xelatex",
+        pdfdvi = "-pdfdvi",
+        pdfps = "-pdfps",
+        pdflatex = "-pdf",
+        luatex = "-lualatex",
+        lualatex = "-lualatex",
+        xelatex = "-xelatex",
+      }
     end,
     config = function()
       return require "configs.vimtex"

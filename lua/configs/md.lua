@@ -322,42 +322,42 @@ local options = {
       },
       heading_2 = {
         style = "icon",
-        sign = "󰌕 ",
+        sign = "󰌖 ",
         sign_hl = "MarkviewHeading1",
         icon = "󰲢 ",
-        hl = "MarkviewHeading2",
+        hl = "MarkviewHeading1",
       },
       heading_3 = {
         style = "icon",
-        sign = "󰌕 ",
-        sign_hl = "MarkviewHeading1",
+        -- sign = "󰌕 ",
+        -- sign_hl = "MarkviewHeading1",
 
         icon = "󰲤 ",
-        hl = "MarkviewHeading3",
+        hl = "MarkviewHeading1",
       },
       heading_4 = {
         style = "icon",
-        sign = "󰌕 ",
-        sign_hl = "MarkviewHeading1",
+        -- sign = "󰌕 ",
+        -- sign_hl = "MarkviewHeading1",
 
         icon = "󰲦 ",
-        hl = "MarkviewHeading4",
+        hl = "MarkviewHeading1",
       },
       heading_5 = {
         style = "icon",
-        sign = "󰌕 ",
-        sign_hl = "MarkviewHeading1",
+        -- sign = "󰌕 ",
+        -- sign_hl = "MarkviewHeading1",
 
         icon = "󰲨 ",
-        hl = "MarkviewHeading5",
+        hl = "MarkviewHeading1",
       },
       heading_6 = {
         style = "icon",
-        sign = "󰌕 ",
-        sign_hl = "MarkviewHeading1",
+        -- sign = "󰌕 ",
+        -- sign_hl = "MarkviewHeading1",
 
         icon = "󰲪 ",
-        hl = "MarkviewHeading6",
+        hl = "MarkviewHeading1",
       },
 
       setext_1 = {
@@ -879,10 +879,10 @@ local options = {
       enable = true,
 
       default = {
-        padding_left = " ",
-        padding_right = " ",
+        padding_left = "",
+        padding_right = "",
 
-        hl = "MarkviewPalette3",
+        hl = "MarkviewHeading1",
       },
     },
 
@@ -1297,7 +1297,7 @@ local options = {
       --   return operator(symbols.entries.sqrt) --, "inline", 5)
       -- end,
       ["lvert"] = operator("vert", "inline", 6),
-      --   function()
+      -- function()
       --   local symbols = require "markview.symbols"
       --   return operator(symbols.entries.vert, "inline", 6)
       -- end,

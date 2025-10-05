@@ -50,7 +50,7 @@ mason_dap.setup {
 -- Configurations
 dap.adapters.lldb = {
   type = "executable",
-  command = "/usr/bin/lldb-19", -- adjust as needed, must be absolute path
+  command = "/usr/bin/lldb", -- adjust as needed, must be absolute path
   name = "lldb",
 }
 dap.adapters.codelldb = {

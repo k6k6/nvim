@@ -47,10 +47,13 @@ local lspconfig = require "lspconfig"
 -- vim.lsp.config("lua_ls", {
 --   settings = settings,
 -- })
-
-lspconfig.clangd.setup {
-  cmd = { "clangd" },
-}
+local pn = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local wd = "/home/kong/.cache/jdtls/" .. pn
+vim.lsp.enable "clangd"
+vim.lsp.config("jdtls", {
+  cmd = { "jdtls", "-data", wd },
+})
+vim.lsp.enable "jdtls"
 vim.lsp.config("basedpyright", {
   settings = {
     basedpyright = {
@@ -72,6 +75,7 @@ vim.lsp.config("texlab", {
       chktex = {
         onOpenAndSave = true,
       },
+      latexFormatter = "texlab",
     },
   },
 })
@@ -87,20 +91,6 @@ vim.lsp.config("ruff", {
 vim.lsp.config("dprint", {
   enable = false,
 })
--- vim.lsp.config("markdown_oxide", {
---   capabilities = vim.tbl_deep_extend("force", nvlsp.capabilities, {
---     workspace = {
---       didChangeWatchedFiles = {
---         dynamicRegistration = true,
---       },
---     },
---   }),
---   settings = {
---     completion = {
---       enable = true,
---     },
---   },
--- })
 -- masonlsp.setup {
 --   handlers = {
 --     function(server)

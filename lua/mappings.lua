@@ -7,6 +7,7 @@ map({ "n", "t" }, "<A-f>", function()
 end, { desc = "terminal toggle floating term" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>", { desc = "quit insert mode" })
+map("t", "jj", [[<C-\><C-n>]], { desc = "quit insert mode in terminal" })
 map("n", "<leader>gi", function()
   require("snacks").lazygit()
 end, { desc = "open float lazygit" })
@@ -15,19 +16,68 @@ map({ "n" }, "<leader>wp", function()
 end, { desc = "switch between wrap and nowrap" })
 
 -- C++ program autorun
-map({ "n" }, "<leader>rub", function()
+map({ "n" }, "<leader>rb", function()
   local _, result = pcall(vim.fn.execute, "!g++ % -g -o %:h/build/%:t:r.o")
   vim.notify(result, vim.log.levels.INFO, { title = "Cpp Build" })
 end, { desc = "Build the current cpp program" })
+map({ "n" }, "<leader>rg", function()
+  local _, result = pcall(vim.fn.execute, "!g++ % -g -o %:h/build/%:t:r.o -lglut -lGL -lGLU")
+  vim.notify(result, vim.log.levels.INFO, { title = "Opengl Build" })
+end, { desc = "Build the current cpp program" })
 map({ "n" }, "<leader>run", "<cmd> !%:h/build/%:t:r.o <cr>", { desc = "Run the current cpp program" })
 
--- Nvimtree
-map("n", "<leader>e", "<cmd> Neotree toggle source=last <cr>", { desc = "NeoTree toggle" })
-map("n", "<leader>a", "<cmd> Neotree focus source=last <cr>", { desc = "NeoTree Focus" })
+-- Nvimtree and Neotree
+local window_size = {}
+local function save_window()
+  for _, winid in ipairs(vim.api.nvim_list_wins()) do
+    local width = vim.api.nvim_win_get_width(winid)
+    local height = vim.api.nvim_win_get_height(winid)
+    window_size[winid] = { width = width, height = height }
+  end
+end
+local function restore_window()
+  for winid, size in pairs(window_size) do
+    if vim.api.nvim_win_is_valid(winid) then
+      vim.api.nvim_win_set_width(winid, size.width)
+      vim.api.nvim_win_set_height(winid, size.height)
+    end
+  end
+end
+map("n", "<leader>e", function()
+  local manager = require "neo-tree.sources.manager"
+  local render = require "neo-tree.ui.renderer"
+  local state
+  local exist = false
+  for _, source in ipairs { "filesystem", "buffers", "git_status", "document_symbols" } do
+    state = manager.get_state(source, nil, nil)
+    if state and state.winid then
+      if render.window_exists(state) then
+        local bufnr = vim.api.nvim_win_get_buf(state.winid)
+        if bufnr == state.bufnr then
+          exist = true
+          break
+        end
+      end
+    end
+  end
+  if exist then
+    vim.fn.execute "Neotree toggle source=last"
+    restore_window()
+  else
+    save_window()
+    vim.fn.execute "Neotree toggle source=last"
+  end
+end, { desc = "NeoTree toggle" })
+map("n", "<leader>a", function()
+  save_window()
+  vim.fn.execute "Neotree focus source=last"
+end, { desc = "NeoTree Focus" })
+-- map("n", "<leader>e", "<cmd> NvimTreeToggle <cr>", { desc = "NvimTree toggle" })
+-- map("n", "<leader>a", "<cmd> NvimTreeFocus <cr>", { desc = "NvimTree Focus" })
 
 -- Buffer
--- map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
-map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
+map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
+-- map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
 map({ "n", "v", "i" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
 map({ "n", "v" }, "<leader>ds", function()

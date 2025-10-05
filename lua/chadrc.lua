@@ -13,6 +13,14 @@ local sep_r = "%#St_sep_r#" .. separators["right"] .. " %#ST_EmptySpace#"
 local function gen_block(icon, txt, sep_l_hlgroup, iconHl_group, txt_hl_group)
   return sep_l_hlgroup .. sep_l .. iconHl_group .. icon .. " " .. txt_hl_group .. " " .. txt .. sep_r
 end
+local function getNvimTreeWidth()
+  for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.bo[vim.api.nvim_win_get_buf(win)].ft == "neo-tree" or vim.bo[vim.api.nvim_win_get_buf(win)].ft == "NvimTree" then
+      return vim.api.nvim_win_get_width(win)
+    end
+  end
+  return 0
+end
 M.base46 = {
   theme = "tokyonight",
   theme_toggle = { "tokyonight", "blossom_light" },
@@ -41,21 +49,34 @@ M.nvdash = {
 -- M.nvdash = { load_on_startup = true }
 M.ui = {
   telescope = { style = "bordered" },
-  cmp = { style = "default" },
+  -- cmp = { style = "default" },
   tabufline = {
     lazyload = false,
+    modules = {
+
+      treeOffset = function()
+        local w = getNvimTreeWidth()
+        return w == 0 and ""
+          or "%#NeoTreeTab#"
+            .. string.rep(" ", (w - 9) / 2)
+            .. "󱗖 Neotree"
+            .. string.rep(" ", w - 9 - (w - 9) / 2 + 1)
+            .. "%#NvimTreeWinSeparator#"
+            .. "│"
+      end,
+    },
   },
   statusline = {
     theme = "minimal",
     separator_style = "round",
-    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "outline", "clock" },
+    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "outline" },
     modules = {
       f = function()
         return "%#NeoTreeTabActive#good"
       end,
       blank = "",
       mylsp = function()
-        local icon = " "
+        local icon = ""
         local t = vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
         local path = vim.api.nvim_buf_get_name(t)
         local name = (path == "" and "Empty") or path:match "([^/\\]+)[/\\]*$"
@@ -79,6 +100,8 @@ M.ui = {
           for _, client in ipairs(vim.lsp.get_clients()) do
             if client.attached_buffers[t] then
               name = (vim.o.columns > 10 and client.name) or "Lsp"
+            else
+              name = "None"
             end
           end
         end

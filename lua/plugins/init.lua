@@ -75,6 +75,18 @@ return {
     ft = "java",
   },
   {
+    "michaelb/sniprun",
+    branch = "master",
+    cmd = { "SnipRun", "SnipInfo" },
+    build = "sh install.sh 1",
+    -- do 'sh install.sh 1' if you want to force compile locally
+    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
+
+    config = function()
+      require "configs.sniprun"
+    end,
+  },
+  {
     "hrsh7th/nvim-cmp",
     -- enabled = false,
     dependencies = { "kdheepak/cmp-latex-symbols" },
@@ -237,7 +249,7 @@ return {
   },
   {
     "3rd/image.nvim",
-    enabled = false,
+    -- enabled = false,
     build = false,
     event = "VeryLazy",
     opts = {
@@ -295,6 +307,9 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = "BufEnter",
+    opts = function()
+      return require "configs.dropbar"
+    end,
     -- Optional, but required for fuzzy finder support
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",

@@ -11,7 +11,7 @@ vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#29c3dd", italic = true, bold
 ------------------------------------------------------------------------- Neotree source selector highlight group ------------------------------------------------------------------
 vim.api.nvim_set_hl(0, "mytab", { fg = "#141414", bg = "#777777" })
 vim.api.nvim_set_hl(0, "mytabsep", { fg = "#777777" })
-vim.api.nvim_set_hl(0, "NeoTreeTab", { fg = "", bg = "#192141" })
+vim.api.nvim_set_hl(0, "NeoTreeTab", { fg = "#000000", bg = "#9fa9de",italic=true,bold=true })
 -- vim.api.nvim_set_hl(0, "NeoTreeTabInactive", {
 -- fg = "#c9c6bd",
 -- bg = "#f2efe4",
@@ -54,13 +54,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 --------------------------------------------------------------- make the comment font italic and bold --------------------------------------------------------------------------------------------
-vim.api.nvim_create_autocmd({ "FileType", "BufWritePost", "VimEnter" }, {
-  pattern = "*",
-  callback = function()
-    local orig = vim.api.nvim_get_hl(0, { name = "@comment" })
-    vim.api.nvim_set_hl(0, "@comment", { fg = orig.fg, bg = orig.bg, italic = true })
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType", "BufWritePost", "VimEnter" }, {
+--   pattern = "*",
+--   callback = function()
+--     local orig = vim.api.nvim_get_hl(0, { name = "@comment" })
+--     vim.api.nvim_set_hl(0, "@comment", { fg = orig.fg, bg = orig.bg, italic = true })
+--   end,
+-- })
 
 ------------------------------------------------------------- auto-update treesitter fold tree when textchanged --------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {

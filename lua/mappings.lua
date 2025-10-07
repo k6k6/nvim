@@ -14,6 +14,8 @@ end, { desc = "open float lazygit" })
 map({ "n" }, "<leader>wp", function()
   vim.o.wrap = not vim.o.wrap
 end, { desc = "switch between wrap and nowrap" })
+map({ "n" }, "<leader>fn", "<cmd> Telescope notify <CR>", { desc = "open Telescope notify" })
+map("n", "<leader>rl", "<cmd> e! <CR>", { desc = "reload current buffer" })
 
 -- C++ program autorun
 map({ "n" }, "<leader>rb", function()
@@ -65,13 +67,13 @@ map("n", "<leader>e", function()
     restore_window()
   else
     save_window()
-    vim.fn.execute "Neotree toggle source=last"
+    vim.fn.execute "Neotree reveal"
   end
 end, { desc = "NeoTree toggle" })
 map("n", "<leader>a", function()
   save_window()
-  vim.fn.execute "Neotree focus source=last"
-end, { desc = "NeoTree Focus" })
+  vim.fn.execute "Neotree reveal"
+end, { desc = "NeoTree reveal" })
 -- map("n", "<leader>e", "<cmd> NvimTreeToggle <cr>", { desc = "NvimTree toggle" })
 -- map("n", "<leader>a", "<cmd> NvimTreeFocus <cr>", { desc = "NvimTree Focus" })
 
@@ -83,6 +85,7 @@ map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
 map({ "n", "v" }, "<leader>ds", function()
   require("snacks").bufdelete()
 end, { desc = "buffer delete withou window" })
+
 -- Window operations
 map({ "n", "v" }, "<A-h>", "<C-w><", { desc = "switch window to left" })
 map({ "n", "v" }, "<A-j>", "<C-w>-", { desc = "switch window to down" })
@@ -98,6 +101,8 @@ map({ "n", "v" }, "<leader>ww", function()
     vim.api.nvim_set_current_win(picked_window)
   end
 end, { desc = "Pick window" })
+-- SnipRun mappings
+map("n", "<leader>ip", "<cmd> SnipRun <CR>", { desc = "SnipRun the code" })
 
 -- LSP mappings
 map("n", "<A-e>", function()

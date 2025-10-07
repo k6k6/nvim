@@ -15,20 +15,22 @@ local function gen_block(icon, txt, sep_l_hlgroup, iconHl_group, txt_hl_group)
 end
 local function getNvimTreeWidth()
   for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-    if vim.bo[vim.api.nvim_win_get_buf(win)].ft == "neo-tree" or vim.bo[vim.api.nvim_win_get_buf(win)].ft == "NvimTree" then
+    if
+      vim.bo[vim.api.nvim_win_get_buf(win)].ft == "neo-tree" or vim.bo[vim.api.nvim_win_get_buf(win)].ft == "NvimTree"
+    then
       return vim.api.nvim_win_get_width(win)
     end
   end
   return 0
 end
 M.base46 = {
-  theme = "tokyonight",
-  theme_toggle = { "tokyonight", "blossom_light" },
-
-  -- hl_override = {
+  theme = "horizon",
+  theme_toggle = { "horizon", "ayu_light" },
+  -- transparency=true,
+  hl_override = {
   -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  	["@comment"] = { italic = true },
+  },
 }
 M.nvdash = {
   load_on_startup = true,
@@ -69,7 +71,7 @@ M.ui = {
   statusline = {
     theme = "minimal",
     separator_style = "round",
-    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "outline" },
+    order = { "m", "git", "%=", "lsp_msg", "%=", "diagnostics", "mylsp", "outline", "clock" },
     modules = {
       f = function()
         return "%#NeoTreeTabActive#good"
@@ -96,12 +98,11 @@ M.ui = {
             icon = (ft ~= nil and ft) or icon
           end
         end
+        name="Null"
         if rawget(vim, "lsp") then
           for _, client in ipairs(vim.lsp.get_clients()) do
             if client.attached_buffers[t] then
               name = (vim.o.columns > 10 and client.name) or "Lsp"
-            else
-              name = "None"
             end
           end
         end
@@ -138,6 +139,6 @@ M.ui = {
     },
   },
 }
-vim.api.nvim_set_hl(0, "Comment", { italic = true })
+-- vim.api.nvim_set_hl(0, "Comment", { italic = true })
 
 return M

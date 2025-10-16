@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre",
     opts = require "configs.conform",
   },
   {
@@ -65,10 +65,6 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = {},
-    -- opts = function()
-    -- require "configs.lsp"
-    -- return {}
-    -- end,
   },
   {
     "mfussenegger/nvim-jdtls",
@@ -79,9 +75,6 @@ return {
     branch = "master",
     cmd = { "SnipRun", "SnipInfo" },
     build = "sh install.sh 1",
-    -- do 'sh install.sh 1' if you want to force compile locally
-    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-
     config = function()
       require "configs.sniprun"
     end,
@@ -114,63 +107,44 @@ return {
     end,
   },
   {
-    "nvim-mini/mini.pairs",
-    version = false,
-    event = "BufEnter",
-    config = function()
-      require("mini.pairs").setup()
-    end,
-  },
-  {
     "nvim-mini/mini.surround",
     version = false,
-    event = "InsertEnter",
+    event = "VeryLazy",
     config = function()
       require("mini.surround").setup()
     end,
   },
   {
     "windwp/nvim-autopairs",
+    event = { "InsertEnter" },
     enabled = false,
   },
   {
-    "HiPhish/rainbow-delimiters.nvim",
-    enabled = false,
-    event = "BufEnter",
+    "altermo/ultimate-autopair.nvim",
+    -- enabled = false,
+    event = { "InsertEnter", "CmdlineEnter" },
+    branch = "v0.6",
+    config = function()
+      local ua = require "ultimate-autopair"
+      local configs = { ua.extend_default {}, { profile = require("ultimate-autopair.experimental.cmpair").init } }
+      ua.init(configs)
+    end,
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
     -- enabled=false,
-    -- dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
-    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' }, -- if you use standalone mini plugins
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ft = "markdown",
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {
-      heading = {
-        position = "inline",
-        signs = { "󰌕", "󰌖", "", "", "", "", "" },
-        backgrounds = {},
-      },
-      indent = {
-        enabled = true,
-        icon = " ",
-      },
-      bullet = {
-        left_pad = 1,
-      },
-    },
+    opts = require "configs.render-markdown",
   },
-  {
-    "OXY2DEV/markview.nvim",
-    enabled = false,
-    opts = function()
-      return require "configs.md"
-    end,
-    lazy = false,
-    priority = 44,
-  },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   opts = function()
+  --     return require "configs.markview"
+  --   end,
+  --   lazy = false,
+  --   priority = 44,
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     -- enabled = false,
@@ -181,8 +155,7 @@ return {
       { "<leader>mk", "<cmd>MarkdownPreviewToggle<CR>", desc = "Toggle markdown preview", mode = "n" },
     },
     init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-      -- vim.g.mkdp_browser = "zen-browser"
+      require "init.mkdp"
     end,
   },
   {
@@ -199,9 +172,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     lazy = false,
-    opts = function()
-      return require "configs.neotree"
-    end,
+    opts = require "configs.neotree",
   },
   {
     "s1n7ax/nvim-window-picker",
@@ -209,66 +180,35 @@ return {
     event = "VeryLazy",
     version = "2.*",
     config = function()
-      require("window-picker").setup {
-        hint = "floating-letter",
-        show_prompt = false,
-        filter_rules = {
-          bo = {
-            -- if the file type is one of following, the window will be ignored
-            filetype = { "NvimTree", "neo-tree", "notify", "snacks_notif" },
-
-            -- if the file type is one of following, the window will be ignored
-            buftype = {}, --{ "terminal" },
-          },
-        },
-      }
+      require "configs.windows-picker"
     end,
-  },
+  }, -- lazy.nvim
   {
-    "rcarriga/nvim-notify",
+    "folke/noice.nvim",
     event = "VeryLazy",
-    config = function()
-      return require "configs.notify"
-    end,
+    opts = require "configs.noice",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        config = function()
+          require "configs.notify"
+        end,
+      },
+    },
   },
   {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
-    opts = {
-      -- animate = { enabled = true },
-      bigfile = { enabled = true },
-      indent = { enabled = true },
-      bufdelte = { enabled = true },
-      -- image = { enabled = true },
-      -- lazygit = { enabled = true },
-      -- scroll = { enabled = true },
-      words = { enabled = true },
-    },
+    opts = require "configs.snacks",
   },
   {
     "3rd/image.nvim",
     -- enabled = false,
     build = false,
     event = "VeryLazy",
-    opts = {
-      backend = "sixel",
-      processor = "magick_cli",
-      integrations = {
-        markdown = {
-          enabled = false,
-          only_render_image_at_cursor = true,
-          only_render_image_at_cursor_mode = "inline",
-          -- floating_windows = true,
-        },
-      },
-    },
-    -- config = function()
-    -- require("image").setup {
-    -- backend = "sixel",
-    -- }
-    -- end,
+    opts = require "configs.image",
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -282,9 +222,7 @@ return {
   },
   {
     "folke/trouble.nvim",
-    opts = function()
-      return require "configs.trouble"
-    end,
+    opts = require "configs.trouble",
     cmd = "Trouble",
     keys = {
       {
@@ -307,10 +245,7 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = "BufEnter",
-    opts = function()
-      return require "configs.dropbar"
-    end,
-    -- Optional, but required for fuzzy finder support
+    opts = require "configs.dropbar",
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",
     },
@@ -319,49 +254,7 @@ return {
     "lervag/vimtex",
     lazy = false,
     init = function()
-      vim.g.tex_flavor = "latex"
-      vim.g.vimtex_quickfix_mode = 0
-      vim.g.vimtex_view_general_viewer = "llpp"
-      -- vim.g.vimtex_view_general_options = "-remote /tmp/llpp.remote @pdf"
-      -- vim.g.vimtex_view_method = "zathura"
-      vim.g.vimtex_ui_method = {
-        conform = "nvim",
-        input = "nvim",
-        select = "nvim",
-      }
-      vim.g.vimtex_log_ignore = {
-        "Treesitter",
-      }
-      vim.g.vimtex_syntax_conceal = {
-        accents = 1,
-        ligatures = 1,
-        cites = 1,
-        fancy = 1,
-        spacing = 1,
-        greek = 1,
-        math_bounds = 1,
-        math_delimiters = 1,
-        math_fracs = 1,
-        math_super_sub = 1,
-        math_symbols = 1,
-        sections = 0,
-        styles = 1,
-      }
-      vim.o.conceallevel = 2
-      vim.o.concealcursor = "nc"
-      vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_compiler_latexmk_engines = {
-        _ = "-xelatex",
-        pdfdvi = "-pdfdvi",
-        pdfps = "-pdfps",
-        pdflatex = "-pdf",
-        luatex = "-lualatex",
-        lualatex = "-lualatex",
-        xelatex = "-xelatex",
-      }
-    end,
-    config = function()
-      return require "configs.vimtex"
+      require "init.vimtex"
     end,
   },
 }

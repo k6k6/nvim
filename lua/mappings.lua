@@ -7,7 +7,7 @@ map({ "n", "t" }, "<A-f>", function()
 end, { desc = "terminal toggle floating term" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jj", "<ESC>", { desc = "quit insert mode" })
-map("t", "jj", [[<C-\><C-n>]], { desc = "quit insert mode in terminal" })
+-- map("t", "jj", [[<C-\><C-n>]], { desc = "quit insert mode in terminal" })
 map("n", "<leader>gi", function()
   require("snacks").lazygit()
 end, { desc = "open float lazygit" })
@@ -67,7 +67,7 @@ map("n", "<leader>e", function()
     restore_window()
   else
     save_window()
-    vim.fn.execute "Neotree reveal"
+    vim.fn.execute "Neotree toggle source=last"
   end
 end, { desc = "NeoTree toggle" })
 map("n", "<leader>a", function()
@@ -79,6 +79,7 @@ end, { desc = "NeoTree reveal" })
 
 -- Buffer
 map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
+map("n", "<leader>k", "<cmd> bp <cr>", { desc = "prev buffer" })
 -- map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
 map({ "n", "v", "i" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })

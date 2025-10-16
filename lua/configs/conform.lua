@@ -1,5 +1,6 @@
 local options = {
   formatters_by_ft = {
+    bigfile = {"dprint"},
     lua = { "stylua" },
     python = { "ruff_format", "ruff_organize_imports" },
     tex = { "latexindent" },

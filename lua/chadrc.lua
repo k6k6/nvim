@@ -25,7 +25,7 @@ local function getNvimTreeWidth()
 end
 M.base46 = {
   theme = "horizon",
-  theme_toggle = { "horizon", "ayu_light" },
+  theme_toggle = { "oceanic-light", "horizon" },
   -- transparency=true,
   hl_override = {
   -- 	Comment = { italic = true },

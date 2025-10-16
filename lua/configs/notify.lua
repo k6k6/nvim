@@ -1,6 +1,6 @@
 require("notify").setup {
   background = "",
-  render = "wrapped-default",
+  render = "wrapped-compact",
   stages = "fade",
   max_width = 60,
   max_height = 20,

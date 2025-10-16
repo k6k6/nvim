@@ -3,7 +3,7 @@ local options = {
     sources = function(buf, _)
       local utils = require "dropbar.utils"
       local sources = require "dropbar.sources"
-      local lspft = { "lua", "python" }
+      local lspft = { "lua", "python", "java" }
       if vim.bo[buf].ft == "markdown" then
         return {
           -- sources.path,

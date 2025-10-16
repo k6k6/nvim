@@ -175,6 +175,14 @@ return {
     opts = require "configs.neotree",
   },
   {
+    "jiaoshijie/undotree",
+    opts = {
+    },
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
+  },
+  {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     event = "VeryLazy",
@@ -182,7 +190,7 @@ return {
     config = function()
       require "configs.windows-picker"
     end,
-  }, -- lazy.nvim
+  },
   {
     "folke/noice.nvim",
     event = "VeryLazy",

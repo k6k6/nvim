@@ -28,12 +28,12 @@ M.base46 = {
   theme_toggle = { "oceanic-light", "horizon" },
   -- transparency=true,
   hl_override = {
-  -- 	Comment = { italic = true },
-  	["@comment"] = { italic = true },
+    -- 	Comment = { italic = true },
+    ["@comment"] = { italic = true },
   },
 }
 M.nvdash = {
-  load_on_startup = true,
+  -- load_on_startup = true,
   header = {
     [[                                                                       ]],
     [[                                                                     ]],
@@ -55,7 +55,6 @@ M.ui = {
   tabufline = {
     lazyload = false,
     modules = {
-
       treeOffset = function()
         local w = getNvimTreeWidth()
         return w == 0 and ""
@@ -98,7 +97,7 @@ M.ui = {
             icon = (ft ~= nil and ft) or icon
           end
         end
-        name="Null"
+        name = "Null"
         if rawget(vim, "lsp") then
           for _, client in ipairs(vim.lsp.get_clients()) do
             if client.attached_buffers[t] then

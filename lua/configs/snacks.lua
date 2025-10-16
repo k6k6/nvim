@@ -1,6 +1,20 @@
 local options = {
   -- animate = { enabled = true },
   bigfile = { enabled = true, line_length = 1000 },
+  dashboard = {
+    enabled = true,
+    width = 75,
+    sections = {
+      -- { section = "header" },
+      {
+        section = "terminal",
+        cmd = "cat ~/neovim.txt|lolcat",
+        height = 10,
+      },
+      { section = "keys", gap = 1, padding = 2 },
+      { section = "startup" },
+    },
+  },
   indent = {
     enabled = true,
     filter = function(buf)
@@ -11,6 +25,7 @@ local options = {
     end,
   },
   bufdelte = { enabled = true },
+  -- git = { enabled = true },
   -- image = { enabled = true },
   input = { enabled = true },
   -- lazygit = { enabled = true },

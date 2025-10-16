@@ -1,3 +1,5 @@
+local config_path = tostring(vim.fn.system "echo $XDG_CONFIG_HOME")
+config_path=config_path:gsub("[\r\n]+$", "")
 local options = {
   -- animate = { enabled = true },
   bigfile = { enabled = true, line_length = 1000 },
@@ -8,8 +10,8 @@ local options = {
       -- { section = "header" },
       {
         section = "terminal",
-        cmd = "cat ~/neovim.txt|lolcat",
-        height = 10,
+        cmd = "sh " .. config_path .. "/nvim/lua/scripts/neo.sh",
+        height = 12,
       },
       { section = "keys", gap = 1, padding = 2 },
       { section = "startup" },

@@ -102,8 +102,10 @@ map({ "n", "v" }, "<leader>ww", function()
     vim.api.nvim_set_current_win(picked_window)
   end
 end, { desc = "Pick window" })
+
 -- SnipRun mappings
-map("n", "<leader>ip", "<cmd> SnipRun <CR>", { desc = "SnipRun the code" })
+map("n", "<leader>ip", "<cmd>SnipRun<CR>", { desc = "SnipRun the code in normal mode" })
+map("v", "<leader>ip", ":SnipRun<CR>", { desc = "SnipRun the code in visual mode" })
 
 -- LSP mappings
 map("n", "<A-e>", function()

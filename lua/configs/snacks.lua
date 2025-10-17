@@ -1,5 +1,4 @@
-local config_path = tostring(vim.fn.system "echo $XDG_CONFIG_HOME")
-config_path=config_path:gsub("[\r\n]+$", "")
+local config_path = tostring(vim.fn.system "echo $XDG_CONFIG_HOME"):gsub("[\r\n]+$", "")
 local options = {
   -- animate = { enabled = true },
   bigfile = { enabled = true, line_length = 1000 },

@@ -15,18 +15,39 @@ map({ "n" }, "<leader>wp", function()
   vim.o.wrap = not vim.o.wrap
 end, { desc = "switch between wrap and nowrap" })
 map({ "n" }, "<leader>fn", "<cmd> Telescope notify <CR>", { desc = "open Telescope notify" })
-map("n", "<leader>rl", "<cmd> e! <CR>", { desc = "reload current buffer" })
+map("n", "<leader>ta", function()
+  require("base46").toggle_transparency()
+end, { desc = "toggle bg transparency" })
 
 -- C++ program autorun
 map({ "n" }, "<leader>rb", function()
-  local _, result = pcall(vim.fn.execute, "!g++ % -g -o %:h/build/%:t:r.o")
+  local _, result = pcall(vim.fn.execute, "!mkdir -p %:h/build && g++ % -g -o %:h/build/%:t:r.o")
   vim.notify(result, vim.log.levels.INFO, { title = "Cpp Build" })
-end, { desc = "Build the current cpp program" })
+end, { desc = "Build the current Cpp program" })
 map({ "n" }, "<leader>rg", function()
-  local _, result = pcall(vim.fn.execute, "!g++ % -g -o %:h/build/%:t:r.o -lglut -lGL -lGLU")
-  vim.notify(result, vim.log.levels.INFO, { title = "Opengl Build" })
-end, { desc = "Build the current cpp program" })
-map({ "n" }, "<leader>run", "<cmd> !%:h/build/%:t:r.o <cr>", { desc = "Run the current cpp program" })
+  local _, result = pcall(vim.fn.execute, "!mkdir -p %:h/build && g++ % -g -o %:h/build/%:t:r.o -lglut -lGL -lGLU")
+  vim.notify(result, vim.log.levels.INFO, { title = "OpenGL Build" })
+end, { desc = "Build the current OpenGL program" })
+map({ "n", "t" }, "<A-r>", function()
+  require("nvchad.term").toggle { pos = "sp", id = "CodeRun" }
+end, { desc = "toggle CodeRun terminal" })
+map({ "n" }, "<leader>run", function()
+  require("nvchad.term").runner {
+    id = "CodeRun",
+    pos = "sp",
+    cmd = function()
+      local fdir = vim.fn.expand "%:p:h" .. "/"
+      local fname = vim.fn.expand "%:t:r"
+      local fext = "." .. vim.fn.expand "%:e"
+      local ft_cmds = {
+        python = "python3 " .. fdir .. fname .. fext,
+        cpp = fdir .. "build/" .. fname .. ".o",
+        c = fdir .. "build/" .. fname .. ".o",
+      }
+      return ft_cmds[vim.bo.ft]
+    end,
+  }
+end, { desc = "Run the current Cpp program" })
 
 -- Nvimtree and Neotree
 local window_size = {}
@@ -78,8 +99,13 @@ end, { desc = "NeoTree reveal" })
 -- map("n", "<leader>a", "<cmd> NvimTreeFocus <cr>", { desc = "NvimTree Focus" })
 
 -- Buffer
-map("n", "<leader>j", "<cmd> bn <cr>", { desc = "next buffer" })
-map("n", "<leader>k", "<cmd> bp <cr>", { desc = "prev buffer" })
+map("n", "<leader>j", function()
+  require("nvchad.tabufline").next()
+end, { desc = "next buffer" })
+map("n", "<leader>k", function()
+  require("nvchad.tabufline").prev()
+end, { desc = "prev buffer" })
+map("n", "<leader>rl", "<cmd> e! <CR>", { desc = "reload current buffer" })
 -- map("n", "<C-o>", "<cmd> bp <cr>", { desc = "previous buffer" })
 map({ "n", "v", "i" }, "<C-s>", "<cmd> w <cr>", { desc = "general save file" })
 map({ "n", "v" }, "<leader>q", "<cmd> q <cr>", { desc = "general close file" })
@@ -94,7 +120,7 @@ map({ "n", "v" }, "<A-k>", "<C-w>+", { desc = "switch window to up" })
 map({ "n", "v" }, "<A-l>", "<C-w>>", { desc = "switch window to right" })
 map({ "n", "v" }, "<leader>ws", "<C-w>s", { desc = "split window" })
 map({ "n", "v" }, "<leader>wv", "<C-w>v", { desc = "vertical split window" })
-map({ "n", "v" }, "<leader>ww", function()
+map({ "n", "v", "t" }, "<leader>ww", function()
   local picker = require "window-picker"
   local picked_window = picker.pick_window()
 

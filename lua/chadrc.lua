@@ -23,6 +23,16 @@ local function getNvimTreeWidth()
   end
   return 0
 end
+local tatxt = function(str, hl)
+  str = str or ""
+  local a = "%#Tb" .. hl .. "#" .. str
+  return a
+end
+local tabtn = function(str, hl, func, arg)
+  str = hl and tatxt(str, hl) or str
+  arg = arg or ""
+  return "%" .. arg .. "@Tb" .. func .. "@" .. str .. "%X"
+end
 M.base46 = {
   theme = "horizon",
   theme_toggle = { "oceanic-light", "horizon" },
@@ -30,6 +40,7 @@ M.base46 = {
   hl_override = {
     -- 	Comment = { italic = true },
     ["@comment"] = { italic = true },
+    ["TbThemeToggleBtn"] = { fg = "darker_black", bg = "purple" },
   },
 }
 M.nvdash = {
@@ -54,16 +65,31 @@ M.ui = {
   -- cmp = { style = "default" },
   tabufline = {
     lazyload = false,
+    order = { "treeOffset", "btns", "buffers", "tabs" },
     modules = {
       treeOffset = function()
         local w = getNvimTreeWidth()
         return w == 0 and ""
-          or "%#NeoTreeTab#"
-            .. string.rep(" ", (w - 9) / 2)
+          -- or "%#NeoTreeTab#"
+          -- .. "▒░"
+          or "<"
+            .. string.rep("-", (w - 13) / 2)
+            .. "%#NeoTreeWinSeparator#"
+            .. ""
+            .. "%#NeoTreeTab#"
             .. "󱗖 Neotree"
-            .. string.rep(" ", w - 9 - (w - 9) / 2 + 1)
-            .. "%#NvimTreeWinSeparator#"
+            .. "%#NeoTreeWinSeparator#"
+            .. ""
+            .. string.rep("-", w - 13 - (w - 13) / 2 + 1)
+            .. ">"
             .. "│"
+      end,
+      btns = function()
+        local toggle_theme = tabtn(" ", "ThemeToggleBtn", "Toggle_theme")
+        vim.api.nvim_set_hl(0, "tbBtn", { fg = vim.api.nvim_get_hl(0, { name = "TbThemeToggleBtn" }).bg })
+        return "%#tbBtn#" .. "" .. toggle_theme .. "%#tbBtn#" .. ""
+        -- local closeAllBufs = tabtn(" 󰅖 ", "CloseAllBufsBtn", "CloseAllBufs")
+        -- return toggle_theme .. closeAllBufs
       end,
     },
   },
@@ -139,5 +165,9 @@ M.ui = {
   },
 }
 -- vim.api.nvim_set_hl(0, "Comment", { italic = true })
-
+M.term = {
+  float = {
+    border = "rounded",
+  },
+}
 return M

@@ -9,8 +9,8 @@ local options = {
       -- { section = "header" },
       {
         section = "terminal",
-        cmd = "sh " .. config_path .. "/nvim/lua/scripts/neo.sh",
-        height = 12,
+        cmd = "sh " .. config_path .. "/nvim/lua/utils/neo.sh",
+        height = 10,
       },
       { section = "keys", gap = 1, padding = 2 },
       { section = "startup" },

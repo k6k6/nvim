@@ -107,7 +107,10 @@ return {
     branch = "v0.6",
     config = function()
       local ua = require "ultimate-autopair"
-      local configs = { ua.extend_default {}, { profile = require("ultimate-autopair.experimental.cmpair").init } }
+      local configs = {
+        ua.extend_default { bs = { delete_from_end = false } },
+        { profile = require("ultimate-autopair.experimental.cmpair").init },
+      }
       ua.init(configs)
     end,
   },

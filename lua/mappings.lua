@@ -66,7 +66,7 @@ local function restore_window()
     end
   end
 end
-map("n", "<leader>e", function()
+local function isexist()
   local manager = require "neo-tree.sources.manager"
   local render = require "neo-tree.ui.renderer"
   local state
@@ -83,7 +83,10 @@ map("n", "<leader>e", function()
       end
     end
   end
-  if exist then
+  return exist
+end
+map("n", "<leader>e", function()
+  if isexist() then
     vim.fn.execute "Neotree toggle source=last"
     restore_window()
   else
@@ -92,7 +95,9 @@ map("n", "<leader>e", function()
   end
 end, { desc = "NeoTree toggle" })
 map("n", "<leader>a", function()
-  save_window()
+  if not isexist() then
+    save_window()
+  end
   vim.fn.execute "Neotree reveal"
 end, { desc = "NeoTree reveal" })
 -- map("n", "<leader>e", "<cmd> NvimTreeToggle <cr>", { desc = "NvimTree toggle" })

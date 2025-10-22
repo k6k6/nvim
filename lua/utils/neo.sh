@@ -27,8 +27,8 @@ while true; do
   if [ -z "$seed" ]; then
     seed=1
   fi
-  echo "$neovim" | dotacat -S "$seed" -F 0.03
-  seed=$(((seed + 1) % 210))
+  echo "$neovim" | dotacat -S "$seed" -F 0.02
+  seed=$(((seed + 1) % 315))
   if [ $seed -eq 0 ]; then
     seed=1
   fi

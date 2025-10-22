@@ -84,26 +84,7 @@ return {
     -- enabled = false,
     dependencies = { "kdheepak/cmp-latex-symbols" },
     opts = function(_, opts)
-      local cmp = require "cmp"
-      require "snippets.init"
-      opts.sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        { name = "nvim_lua" },
-        { name = "async_path" },
-        {
-          name = "latex_symbols",
-          option = {
-            strategy = 2,
-          },
-        },
-      }
-      opts.window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-      }
-      return opts
+      return require("configs.cmp").options(opts)
     end,
   },
   {
@@ -176,8 +157,7 @@ return {
   },
   {
     "jiaoshijie/undotree",
-    opts = {
-    },
+    opts = {},
     keys = { -- load the plugin only when using it's keybinding:
       { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
     },

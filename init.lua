@@ -5,6 +5,7 @@ vim.opt.termguicolors = true
 vim.opt.viewoptions = "folds,cursor"
 vim.opt.sessionoptions = "help,winpos,resize,folds,terminal,winsize,blank"
 vim.o.clipboard = "unnamedplus"
+
 -------------------------------------------------------------------------------- Markview highlight group --------------------------------------------------------------------------
 vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#29c3dd", italic = true, bold = true })
 

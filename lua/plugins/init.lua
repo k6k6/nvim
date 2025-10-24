@@ -182,6 +182,7 @@ return {
       "MunifTanjim/nui.nvim",
       {
         "rcarriga/nvim-notify",
+        enabled = false,
         config = function()
           require "configs.notify"
         end,

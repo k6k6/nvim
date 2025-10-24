@@ -3,8 +3,8 @@ local options = {
   processor = "magick_cli",
   integrations = {
     markdown = {
-      enabled = false,
-      -- only_render_image_at_cursor = true,
+      -- enabled = false,
+      only_render_image_at_cursor = true,
       -- only_render_image_at_cursor_mode = "inline",
       -- floating_windows = true,
     },

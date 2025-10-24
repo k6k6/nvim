@@ -87,7 +87,7 @@ M.ui = {
       btns = function()
         local toggle_theme = tabtn(" ", "ThemeToggleBtn", "Toggle_theme")
         vim.api.nvim_set_hl(0, "tbBtn", { fg = vim.api.nvim_get_hl(0, { name = "TbThemeToggleBtn" }).bg })
-        return "%#tbBtn#" .. "" .. toggle_theme .. "%#tbBtn#" .. ""
+        return "%#tbBtn#" .. "" .. toggle_theme .. "%#tbBtn#" .. "" .. "│"
         -- local closeAllBufs = tabtn(" 󰅖 ", "CloseAllBufsBtn", "CloseAllBufs")
         -- return toggle_theme .. closeAllBufs
       end,

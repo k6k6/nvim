@@ -14,7 +14,7 @@ end, { desc = "open float lazygit" })
 map({ "n" }, "<leader>wp", function()
   vim.o.wrap = not vim.o.wrap
 end, { desc = "switch between wrap and nowrap" })
-map({ "n" }, "<leader>fn", "<cmd> Telescope notify <CR>", { desc = "open Telescope notify" })
+map({ "n" }, "<leader>fn", "<cmd> lua Snacks.notifier.show_history() <CR>", { desc = "open Telescope notify" })
 map("n", "<leader>ta", function()
   require("base46").toggle_transparency()
 end, { desc = "toggle bg transparency" })
